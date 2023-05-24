@@ -29,17 +29,24 @@ public class FilmController {
         service.edit(film);
         return modelAndView;
     }
-
     @GetMapping("/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") Long id) {
-        System.out.println(id);
         ModelAndView modelAndView = new ModelAndView("editPage");
         Film film = service.getById(id);
         modelAndView.addObject("film", film);
         return modelAndView;
     }
+
     @GetMapping("/add")
-    public String addPage() {
-        return "add";
+    public ModelAndView addPage() {
+        ModelAndView modelAndView = new ModelAndView("editPage");
+        modelAndView.addObject("film", new Film());
+        return modelAndView;
+    }
+    @PostMapping("/add")
+    public ModelAndView addFilm(@ModelAttribute("film") Film film) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        service.add(film);
+        return modelAndView;
     }
 }

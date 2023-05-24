@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Edit</title>
+  <th:block th:if="${film.id != null}">
+    <title>Edit</title>
+  </th:block>
+  <th:block th:else>
+    <title>Add</title>
+  </th:block>
 </head>
 <body>
 <form th:action="@{/edit}" method="post">
@@ -10,11 +15,12 @@
   <input type="text" name="title" id="title" th:value="${film.title}">
   <label for="year">Year</label>
   <input type="text" name="year" id="year" th:value="${film.year}">
-  <label for="genre">Genre</label>
+  <label for="genre">URL</label>
   <input type="text" name="url" id="genre" th:value="${film.url}">
   <label for="watched">Watched</label>
   <input type="text" name="watched" id="watched" th:value="${film.watched}">
-  <input type="submit" value="Edit film">
+  <input type="submit" th:value="${film.id != null ? 'Edit film' : 'Create film'}">
 </form>
+
 </body>
 </html>
