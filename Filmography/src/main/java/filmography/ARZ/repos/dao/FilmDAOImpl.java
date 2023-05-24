@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class FilmDAOImpl implements FilmDAO{
-    private static final AtomicLong AUTO_ID = new AtomicLong(0);
+    private static final AtomicLong AUTO_ID = new AtomicLong(1);
     private static Map<Long, Film> films = new HashMap<>();
     static {
         Film film = new Film();
@@ -17,6 +17,7 @@ public class FilmDAOImpl implements FilmDAO{
         film.setUrl("");
         film.setTitle("Начало");
         film.setWatched(true);
+        film.setYear(2013);
         films.put(film.getId(), film);
     }
     @Override

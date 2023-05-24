@@ -9,23 +9,24 @@
   <tr>
     <th>id</th>
     <th>title</th>
+    <th>year</th>
     <th>url</th>
     <th>watched</th>
+    <th>action</th>
   </tr>
   <tr th:each="film: ${filmList}">
-    <td th:text="${film.getId()}"></td>
+    <td th:text="${film.id}"></td>
     <td th:text="${film.title}"></td>
+    <td th:text="${film.year}"></td>
     <td th:text="${film.url}"></td>
     <td th:text="${film.watched}"></td>
     <td>
-      <a th:href="/edit/${film.id}">edit</a>
-      <a th:href="/delete/${film.id}">delete</a>
+      <a th:href="@{/edit/{id}(id=${film.id})}">edit</a>
+      <a th:href="@{/delete/{id}(id=${film.id})}">delete</a>
     </td>
   </tr>
 </table>
-
 <h2>Add</h2>
-<!--<th:url value="/add" var="add"/>-->
-<a th:href="/add">Add new film</a>
+<a th:href="@{add}">Add new film</a>
 </body>
 </html>
