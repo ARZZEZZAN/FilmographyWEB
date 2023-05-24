@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <title>FILMS</title>
+</head>
+<body>
+<h2>Films</h2>
+<table>
+  <tr>
+    <th>id</th>
+    <th>title</th>
+    <th>url</th>
+    <th>watched</th>
+  </tr>
+  <tr th:each="film: ${filmList}">
+    <td th:text="${film.getId()}"></td>
+    <td th:text="${film.title}"></td>
+    <td th:text="${film.url}"></td>
+    <td th:text="${film.watched}"></td>
+    <td>
+      <a th:href="/edit/${film.id}">edit</a>
+      <a th:href="/delete/${film.id}">delete</a>
+    </td>
+  </tr>
+</table>
+
+<h2>Add</h2>
+<!--<th:url value="/add" var="add"/>-->
+<a th:href="/add">Add new film</a>
+</body>
+</html>
