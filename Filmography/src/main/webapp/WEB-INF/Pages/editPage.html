@@ -9,7 +9,7 @@
   </th:block>
 </head>
 <body>
-<form th:action="@{/edit}" method="post">
+<form th:action="${film.id != null} ? '/edit' : '/add'" method="post">
   <input type="hidden" name="id" th:value="${film.id}">
   <label for="title">Title</label>
   <input type="text" name="title" id="title" th:value="${film.title}">

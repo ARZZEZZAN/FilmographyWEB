@@ -29,6 +29,7 @@ public class FilmController {
         service.edit(film);
         return modelAndView;
     }
+
     @GetMapping("/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("editPage");
@@ -47,6 +48,13 @@ public class FilmController {
     public ModelAndView addFilm(@ModelAttribute("film") Film film) {
         ModelAndView modelAndView = new ModelAndView("redirect:/");
         service.add(film);
+        return modelAndView;
+    }
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        Film film = service.getById(id);
+        service.delete(film);
         return modelAndView;
     }
 }
