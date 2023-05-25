@@ -1,49 +1,80 @@
 package filmography.ARZ.repos.dao;
 
 import filmography.ARZ.repos.Model.Film;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+
 @Repository
 public class FilmDAOImpl implements FilmDAO{
-    private static final AtomicLong AUTO_ID = new AtomicLong(1);
-    private static Map<Long, Film> films = new HashMap<>();
-    static {
-        Film film = new Film();
-        film.setId(AUTO_ID.getAndIncrement());
-        film.setUrl("");
-        film.setTitle("Начало");
-        film.setWatched(true);
-        film.setYear(2013);
-        films.put(film.getId(), film);
+
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public FilmDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
     @Override
     public List<Film> allFilms() {
-        return new ArrayList<>(films.values());
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Film> query = cb.createQuery(Film.class);
+        Root<Film> root = query.from(Film.class);
+
+        query.select(root);
+        TypedQuery<Film> typedQuery = session.createQuery(query);
+        List<Film> films = typedQuery.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return films;
     }
 
     @Override
     public void add(Film film) {
-        film.setId(AUTO_ID.getAndIncrement());
-        films.put(film.getId(), film);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.persist(film);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public void delete(Film film) {
-        films.remove(film.getId());
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.remove(film);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public void edit(Film film) {
-        films.put(film.getId(), film);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.merge(film);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public Film getById(Long id) {
-        return films.get(id);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Film film = session.find(Film.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return film;
     }
 }

@@ -1,7 +1,7 @@
-drop schema if exists Film cascade;
-create schema if not exists Film;
+drop schema if exists FilmData cascade;
+create schema if not exists FilmData;
 
-CREATE TABLE Film.film (
+CREATE TABLE FilmData.film (
                            id SERIAL PRIMARY KEY,
                            title VARCHAR(50) NOT NULL UNIQUE,
                            url VARCHAR(50) NOT NULL,

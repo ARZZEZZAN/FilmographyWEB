@@ -23,6 +23,7 @@ public class FilmController {
 
     @GetMapping("/")
     public ModelAndView allFilms() {
+        System.out.println("Start page");
         List<Film> filmList = service.allFilms();
         ModelAndView modelAndView = new ModelAndView("film");
         modelAndView.addObject("filmList", filmList);

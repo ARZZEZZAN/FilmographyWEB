@@ -11,6 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Entity
+@Table(name = "film")
 public class Film {
     @Id
     @Column(name = "id")
@@ -24,5 +25,6 @@ public class Film {
     private int year;
     @Column(name = "watched")
     private boolean watched;
+
 
 }
