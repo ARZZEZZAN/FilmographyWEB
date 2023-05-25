@@ -1,13 +1,14 @@
 package filmography.ARZ.repos.dao;
 
 import filmography.ARZ.repos.Model.Film;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
-
+@Repository
 public class FilmDAOImpl implements FilmDAO{
     private static final AtomicLong AUTO_ID = new AtomicLong(1);
     private static Map<Long, Film> films = new HashMap<>();

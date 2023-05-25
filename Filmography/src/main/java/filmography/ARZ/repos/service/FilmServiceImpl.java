@@ -3,11 +3,19 @@ package filmography.ARZ.repos.service;
 import filmography.ARZ.repos.Model.Film;
 import filmography.ARZ.repos.dao.FilmDAO;
 import filmography.ARZ.repos.dao.FilmDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FilmServiceImpl implements FilmService {
-    private FilmDAO filmDAO = new FilmDAOImpl();
+    private FilmDAO filmDAO;
+
+    @Autowired
+    public FilmServiceImpl(FilmDAO filmDAO) {
+        this.filmDAO = filmDAO;
+    }
 
     @Override
     public List<Film> allFilms() {

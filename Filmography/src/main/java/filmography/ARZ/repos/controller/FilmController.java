@@ -2,7 +2,7 @@ package filmography.ARZ.repos.controller;
 
 import filmography.ARZ.repos.Model.Film;
 import filmography.ARZ.repos.service.FilmService;
-import filmography.ARZ.repos.service.FilmServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +14,13 @@ import java.util.List;
 
 @Controller
 public class FilmController {
-    private final FilmService service = new FilmServiceImpl();
+    private final FilmService service;
+
+    @Autowired
+    public FilmController(FilmService service) {
+        this.service = service;
+    }
+
     @GetMapping("/")
     public ModelAndView allFilms() {
         List<Film> filmList = service.allFilms();
